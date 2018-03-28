@@ -1,0 +1,197 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+\useoutertheme{infolines}
+\beamertemplatenavigationsymbolsempty
+
+\AtBeginSection{\frame{\sectionpage}}
+\AtBeginSubsection{\frame{\subsectionpage}}
+\newtranslation[to=french]{Subsection}{Sous-section}
+
+\title{Vim: éditeur un jour, éditeur toujours}
+\author{Guillaume Hélouis}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Présentation globale}
+\begin{frame} \frametitle{Historique}
+  \begin{itemize}
+    \item Vi IMproved
+    \item Charityware écrit par Bram Moolenaar en 1991
+    \item Philosophie UNIX
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Les modes}
+  \begin{itemize}
+    \item 6 modes différents
+    \item La plupart du temps on reste en mode normal
+  \end{itemize}
+\end{frame}
+
+\section{Se déplacer}
+\begin{frame} \frametitle{Dans le texte}
+  \begin{itemize}
+    \item Par caractère: h,j,k,l
+    \item Par mot: w,e,b
+    \item Début/fin de ligne: 0,\$
+    \item Début/fin du fichier: gg,G
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Dans la fenêtre}
+  \begin{itemize}
+    \item Haut, milieu, bas: H,M,L
+  \end{itemize}
+\end{frame}
+
+\section{Éditer du texte}
+\begin{frame} \frametitle{Insertion}
+  \begin{itemize}
+    \item Entrer en mode insertion sous le curseur: {\tt i}
+    \item En début de ligne: {\tt I}
+    \item Au début d'un nouvelle ligne: {\tt o}
+    \item Retourner en mode normal: {\tt ESC}
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Opérations de base}
+  \begin{itemize}
+    \item Suppression: x
+    \item Copier une ligne: yy
+    \item Supprimer une ligne: dd
+    \item Coller: p
+  \end{itemize}
+\end{frame}
+\subsection{Opérateurs et motions}
+\begin{frame} \frametitle{Opérateurs}
+  \begin{itemize}
+    \item Suppression: d
+    \item Copie: y
+    \item Préfixer avec n pour répéter n fois
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Motions}
+  \begin{itemize}
+    \item Mouvements: w, e, \dots
+    \item Délimiteurs: (, \{, [, \textless, ", '
+    \begin{itemize}
+      \item possible de préfixer avec: a ``arround'', i ``in'', t ``till''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile] \frametitle{Mise en pratique}
+  \begin{itemize}
+    \item \begin{verbatim}[operator][count][motion]\end{verbatim}
+  \end{itemize}
+  \begin{itemize}
+    \item \pause Comment effacer 3 mots? \pause d3w
+    \item \pause Comment copier du curseur jusqu'à la fin de la ligne? \pause y\$
+    \item \pause Comment copier 50 lignes? \pause 50yy
+    \item \pause Comment supprimer tout le texte contenu à l'intérieur de
+      quotes? \pause di"
+  \end{itemize}
+  \pause
+  \begin{exampleblock}{Protip}{\tt <ESC>} pour faire un reset\end{exampleblock}
+\end{frame}
+
+
+\section{Les commandes}
+\begin{frame} \frametitle{Gestion des fichiers}
+  \begin{itemize}
+    \item Sauvegarder: {\tt :w[rite]}
+    \item Quitter: {\tt :q[uit]}
+    \item Quitter sans sauvegarder: {\tt :q!}
+    \item Ouvrir un fichier: {\tt :e[dit] <un fichier>}
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \begin{itemize}
+    \item Comment sauvegarder et quitter un fichier? \pause {\tt :wq}
+  \end{itemize}
+  \pause
+  \begin{exampleblock}{Protip}{\tt :x (pour exit) fait la même chose!}\end{exampleblock}
+\end{frame}
+\begin{frame}
+  \begin{itemize}
+    \item Exécuter une commande shell: {\tt :!<cmd>}
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Rechercher}
+  \begin{itemize}
+    \item {\tt /<unMot>}
+    \item {\tt n} et {\tt N} pour boucler sur la prochaine/la précédente
+      occurrence
+  \end{itemize}
+  \begin{itemize}
+    \item {\tt *} pour aller sur la prochaine occurrence du mot sous le curseur
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Remplacer}
+  \begin{itemize}
+    \item Syntaxe sed
+    \item Remplacer toutes les occurrences: {\tt :\%s/mot/nouveauMot/g}
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Aide}
+  \begin{itemize}
+    \item {\tt :h[elp]}
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Quiz}
+  \begin{itemize}
+    \item Comment lister tous les fichiers du répertoire courant sans quitter
+      vim? \pause {\tt :!ls} \pause
+    \item Comment aller à la prochaine occurrence occurrence du mot sous le
+      curseur? \pause {\tt *} \pause
+    \item Comment rechercher le mot ``toto''? \pause {\tt /toto} \pause
+    \item Comment afficher la documentation de la motion {\tt w}? \pause {\tt
+      :help w}
+  \end{itemize}
+\end{frame}
+
+
+\section{Configuration}
+\begin{frame} \frametitle{Buffer courant}
+  \begin{itemize}
+    \item Activer une option: {\tt :set <option>}
+    \item Désactiver une option: {\tt :set no<option>}
+  \end{itemize}
+  \pause
+  \begin{block}{Exemples}
+    \begin{itemize}
+      \item {\tt :set number}
+      \item {\tt :set nonumber}
+    \end{itemize}
+  \end{block}
+\end{frame}
+\begin{frame} \frametitle{.vimrc}
+  \begin{itemize}
+    \item Options, raccourcis custom, colorscheme \dots
+    \item Plugins
+  \end{itemize}
+  \pause
+\end{frame}
+
+\section{Aller plus loin}
+\begin{frame}
+  \begin{itemize}
+    \item {\tt vimtutor}
+    \item \href{http://www.openvim.com/}{openvim.com}
+    \item \href{https://wiki.archlinux.org/index.php/Vim}{wiki.archlinux.org/index.php/Vim}
+    \item \href{https://vim-adventures.com/}{vim-adventures.com}
+    \item \href{https://vimgolf.com/}{vimgolf.com}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item Ma config: \href{https://bitbucket.org/ghelouis/config}{bitbucket.org/ghelouis/config}
+    \item Les slides: \href{https://github.com/ghelouis/talks}{github.com/ghelouis/talks}
+  \end{itemize}
+\end{frame}
+
+\end{document}
