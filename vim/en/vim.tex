@@ -1,0 +1,193 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+
+\useoutertheme{infolines}
+\beamertemplatenavigationsymbolsempty
+
+\AtBeginSection{\frame{\sectionpage}}
+\AtBeginSubsection{\frame{\subsectionpage}}
+
+\title{Vim: once an editor, always an editor}
+\author{Guillaume Hélouis}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Global presentation}
+\begin{frame} \frametitle{History}
+  \begin{itemize}
+    \item Vi IMproved
+    \item Charityware written by Bram Moolenaar in 1991
+    \item UNIX Philosophy
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Modes}
+  \begin{itemize}
+    \item 6 different modes
+    \item Usually stay in normal mode
+  \end{itemize}
+\end{frame}
+
+\section{Moving}
+\begin{frame} \frametitle{In the text}
+  \begin{itemize}
+    \item By character: h,j,k,l
+    \item By word: w,e,b
+    \item Beginning/end of line: 0,\$
+    \item Beginning/end of file: gg,G
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{In the window}
+  \begin{itemize}
+    \item High, middle, low: H,M,L
+  \end{itemize}
+\end{frame}
+
+\section{Edit text}
+\begin{frame} \frametitle{Insert mode}
+  \begin{itemize}
+    \item Enter insert mode under the cursor: {\tt i}
+    \item Start of line: {\tt I}
+    \item Start of a new line: {\tt o}
+    \item Go back to normal mode: {\tt ESC}
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Basics}
+  \begin{itemize}
+    \item Delete: x
+    \item Copy a line: yy
+    \item Delete a line: dd
+    \item Paste: p
+  \end{itemize}
+\end{frame}
+\subsection{Operators and motions}
+\begin{frame} \frametitle{Operators}
+  \begin{itemize}
+    \item Deletion: d
+    \item Copy: y
+    \item Prefix with n to repeat n times
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Motions}
+  \begin{itemize}
+    \item Movements: w, e, \dots
+    \item Blocks: (, \{, [, \textless, ", '
+    \begin{itemize}
+      \item Prefix with: a ``arround'', i ``in'', t ``till''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile] \frametitle{In practice}
+  \begin{itemize}
+    \item \begin{verbatim}[operator][count][motion]\end{verbatim}
+  \end{itemize}
+  \begin{itemize}
+    \item \pause How can we delete 3 words? \pause d3w
+    \item \pause How can we copy from the cursor until the end of the line? \pause y\$
+    \item \pause How can we copy 50 lines? \pause 50yy
+    \item \pause How to suppress all the text inside quotes? \pause di"
+  \end{itemize}
+  \pause
+  \begin{exampleblock}{Protip}{\tt <ESC>} to reset\end{exampleblock}
+\end{frame}
+
+
+\section{Commands}
+\begin{frame} \frametitle{Manage files}
+  \begin{itemize}
+    \item Save: {\tt :w[rite]}
+    \item Quit: {\tt :q[uit]}
+    \item Quit without saving: {\tt :q!}
+    \item Open a file: {\tt :e[dit] <file>}
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \begin{itemize}
+    \item How can we save and quit a file? \pause {\tt :wq}
+  \end{itemize}
+  \pause
+  \begin{exampleblock}{Protip}{\tt :x (for exit) does the same!}\end{exampleblock}
+\end{frame}
+\begin{frame}
+  \begin{itemize}
+    \item Execute a shell command: {\tt :!<cmd>}
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Search}
+  \begin{itemize}
+    \item {\tt /<aWord>}
+    \item {\tt n} and {\tt N} to iterate on the next/previous occurrence
+  \end{itemize}
+  \begin{itemize}
+    \item {\tt *} to go on the next occurrence of the word under the cursor
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Replace}
+  \begin{itemize}
+    \item sed-like syntax
+    \item Replace all occurrences: {\tt :\%s/word/otherWord/g}
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Help}
+  \begin{itemize}
+    \item {\tt :h[elp]}
+  \end{itemize}
+\end{frame}
+\begin{frame} \frametitle{Quiz}
+  \begin{itemize}
+    \item How can we list all the files in the current directory without
+      exiting vim? \pause {\tt :!ls} \pause
+    \item How can we go to the next occurrence of the word under the cursor?
+      \pause {\tt *} \pause
+    \item How can we search for the word ``foo''? \pause {\tt /foo} \pause
+    \item How can we display help for the motion {\tt w}? \pause {\tt
+      :help w}
+  \end{itemize}
+\end{frame}
+
+
+\section{Configuration}
+\begin{frame} \frametitle{Current buffer}
+  \begin{itemize}
+    \item Activate an option: {\tt :set <option>}
+    \item Disable an option: {\tt :set no<option>}
+  \end{itemize}
+  \pause
+  \begin{block}{Examples}
+    \begin{itemize}
+      \item {\tt :set number}
+      \item {\tt :set nonumber}
+    \end{itemize}
+  \end{block}
+\end{frame}
+\begin{frame} \frametitle{.vimrc}
+  \begin{itemize}
+    \item Options, custom key-bindings, colorscheme \dots
+    \item Plugins
+  \end{itemize}
+  \pause
+\end{frame}
+
+\section{Going further}
+\begin{frame}
+  \begin{itemize}
+    \item {\tt vimtutor}
+    \item \href{http://www.openvim.com/}{openvim.com}
+    \item \href{https://wiki.archlinux.org/index.php/Vim}{wiki.archlinux.org/index.php/Vim}
+    \item \href{https://vim-adventures.com/}{vim-adventures.com}
+    \item \href{https://vimgolf.com/}{vimgolf.com}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item My config: \href{https://bitbucket.org/ghelouis/config}{bitbucket.org/ghelouis/config}
+    \item The slides: \href{https://github.com/ghelouis/talks}{github.com/ghelouis/talks}
+  \end{itemize}
+\end{frame}
+
+\end{document}
